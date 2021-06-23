@@ -1,10 +1,15 @@
-import Control.Lens.Each
+import Data.Text (unpack)
 
 runRofiml :: Text -> Rofiml
-runRofiml "" = do
-    entries <- asks rofimlEntries
-    entries&each (pure . entryName)
-        >>= liftIO . putStr . show . foldr1 (\a b -> a ++ "\n" ++ b)
+runRofiml "" = asks (keys rofimlEntries) >>= printEntries
 runRofiml selected = do
     entries <- asks rofimlEntries
-    possibleAction <- traverse ()
+    maybe (return ()) (either doAction printEntries)
+          $ lookup selected entries
+
+printEntries :: [Text] -> Rofiml
+printEntries =
+    liftIO . putStr . show . foldr1 (\a b -> a ++ "\n" ++ b)
+
+doAction :: Action -> Rofiml
+doAction (unAction action) = liftIO callCommand (unpack action)

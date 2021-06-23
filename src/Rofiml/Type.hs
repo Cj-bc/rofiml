@@ -17,22 +17,13 @@ newtype Action = Action { unAction :: Text }
 -- It have its name, action, etc.
 --
 -- TODO: Add more options
-data RofimlEntry = RofimlFinalEntry {
-      _entryName :: Text -- ^ Name of the entry. This will be displayed in rofi
-    , _action :: Action  -- ^ Action to do when this entry is selected.
-    }
-                 | RofimlEntry {
-      _entryName :: Text
-    , _next :: [RofimlEntry]
-    }
+type RofimlEntries = Map Text (Either Action RofimlEntries)
 
-makeLenses ''RofimlEntry
-makePrisms ''RofimlEntry
 
 -- | Body of Rofiml yaml file.
 data RofimlBody = RofimlBody {
                       rofimlName :: Text
-                    , rofimlEntries :: [RofimlEntry]
+                    , rofimlEntries :: RofimlEntries
                     }
 
 newtype Rofiml = Rofiml { unRofiml :: ReaderT RofimlBody (IO ()) }
