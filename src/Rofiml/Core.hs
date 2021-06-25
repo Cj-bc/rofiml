@@ -1,4 +1,6 @@
+module Rofiml.Core where
 import Data.Text (unpack)
+import Rofiml.Type
 
 runRofiml :: Text -> Rofiml
 runRofiml "" = asks (keys rofimlEntries) >>= printEntries

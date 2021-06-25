@@ -7,7 +7,7 @@ maintainer:          "cj.bc-sd@outlook.jp"
 copyright:           "MIT"
 
 extra-source-files:
-- README.md
+- README.org
 - ChangeLog.md
 
 # Metadata used when publishing your package
@@ -21,6 +21,10 @@ description:         Please see the README on GitHub at <https://github.com/Cj-b
 
 dependencies:
 - base >= 4.7 && < 5
+- text
+- lens
+- containers
+- mtl
 
 library:
   source-dirs: src
@@ -29,17 +33,6 @@ executables:
   rofiml-exe:
     main:                Main.hs
     source-dirs:         app
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
-    dependencies:
-    - rofiml
-
-tests:
-  rofiml-test:
-    main:                Spec.hs
-    source-dirs:         test
     ghc-options:
     - -threaded
     - -rtsopts

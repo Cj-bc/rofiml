@@ -7,7 +7,10 @@ Maintainer  : cj.bc-sd@outlook.jp
 Stability   : experimental
 
 -}
+module Rofiml.Type where
 import Data.Text
+import Data.Map
+import Control.Monad.Reader
 import Control.Lens.TH
 
 -- | An Action that will be evaluated as shell command.
